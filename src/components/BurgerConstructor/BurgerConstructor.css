@@ -1,0 +1,41 @@
+.burger_constructor{
+    width: calc(50% - 20px);
+    max-height: 81vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.burger_list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 568px;
+}
+
+.burger_start{
+    width: 536px;
+    padding-left: 32px;
+}
+
+.burger_item{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.burgers__basement{
+    width: 568px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 24px;
+    margin-bottom: 52px;
+}
+
+.burger__icon{
+    width: 36px;
+    height: 36px;
+}

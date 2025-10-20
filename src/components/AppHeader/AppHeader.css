@@ -1,0 +1,22 @@
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__button{
+    display:flex;
+    background: transparent;
+    color:rgb(133, 133, 173);
+    border-radius: 40px;
+    border: none;
+}
+
+.header__logo{
+    margin-right: 317px;
+    margin-left: 112px;
+}
+
+.text_active{
+    color: white;
+}
