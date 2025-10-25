@@ -1,15 +1,72 @@
 import React, { useEffect } from 'react';
 import { useRef, useState } from 'react';
-import './BurgerIngredients.css';
+import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import Card from '../Card/Card'
 import imgBurger from '../../images/burger_simple.png'
+import CardsList from '../CardsList/CardsList';
 
 function BurgerIngredients(){
     const [currentMenu, setCurrentMenu] = useState('breads')
     const breadsRef = useRef(null)
     const saucesRef = useRef(null)
     const toppingsRef = useRef(null)
+    const breadsData = [
+        {
+            img: imgBurger,
+            amount: 20,
+            name: 'Краторная булка N-200i'
+        },
+        {
+            img: imgBurger,
+            amount: 20,
+            name: 'Краторная булка N-200i'
+        }
+    ]
+
+    const saucesData = [
+        {
+            img: imgBurger,
+            amount: 20,
+            name: 'Краторная булка N-200i'
+        },
+        {
+            img: imgBurger,
+            amount: 20,
+            name: 'Краторная булка N-200i'
+        },
+        {
+            img: imgBurger,
+            amount: 20,
+            name: 'Краторная булка N-200i'
+        },
+        {
+            img: imgBurger,
+            amount: 20,
+            name: 'Краторная булка N-200i'
+        }
+    ]
+    const toppingsData= [
+        {
+            img: imgBurger,
+            amount: 20,
+            name: 'Краторная булка N-200i'
+        },
+        {
+            img: imgBurger,
+            amount: 20,
+            name: 'Краторная булка N-200i'
+        },
+        {
+            img: imgBurger,
+            amount: 20,
+            name: 'Краторная булка N-200i'
+        },
+        {
+            img: imgBurger,
+            amount: 20,
+            name: 'Краторная булка N-200i'
+        }
+    ]
     useEffect(()=>{
         let currentRef = null
         if (currentMenu === 'breads'){
@@ -26,8 +83,8 @@ function BurgerIngredients(){
         });
     }, [currentMenu])
     return(
-        <section className='burger__ingredients mt-5'>
-            <nav style={{ display: 'flex' }}>
+        <section className={`${styles.burger__ingredients} mt-5`}>
+            <nav className={styles.burger__nav}>
                 <Tab value="breads" active={currentMenu === 'breads'} onClick={setCurrentMenu}>
                     Булки
                 </Tab>
@@ -38,26 +95,13 @@ function BurgerIngredients(){
                     Начинки
                 </Tab>
             </nav>
-            <div className='ingredients__container mt-5 mt-5'>
+            <div className={`${styles.ingredients__container} mt-5 mt-5`}>
                 <h3 className="text text_type_main-medium" ref={breadsRef}>Булки</h3>
-                <div className='cards'>
-                    <Card img={imgBurger} amount={20} name={'Краторная булка N-200i'}/>
-                    <Card img={imgBurger} amount={20} name={'Краторная булка N-200i'}/>
-                </div>
+                <CardsList cards={breadsData} />
                 <h3 className="text text_type_main-medium" ref={saucesRef}>Соусы</h3>
-                <div className='cards'>
-                    <Card img={imgBurger} amount={20} name={'Краторная булка N-200i'}/>
-                    <Card img={imgBurger} amount={20} name={'Краторная булка N-200i'}/>
-                    <Card img={imgBurger} amount={20} name={'Краторная булка N-200i'}/>
-                    <Card img={imgBurger} amount={20} name={'Краторная булка N-200i'}/>
-                </div>
+                <CardsList cards={saucesData} />
                 <h3 className="text text_type_main-medium" ref={toppingsRef}>Начинки</h3>
-                <div className='cards'>
-                    <Card img={imgBurger} amount={20} name={'Краторная булка N-200i'}/>
-                    <Card img={imgBurger} amount={20} name={'Краторная булка N-200i'}/>
-                    <Card img={imgBurger} amount={20} name={'Краторная булка N-200i'}/>
-                    <Card img={imgBurger} amount={20} name={'Краторная булка N-200i'}/>
-                </div>
+                <CardsList cards={toppingsData} />
             </div>
         </section>
     )

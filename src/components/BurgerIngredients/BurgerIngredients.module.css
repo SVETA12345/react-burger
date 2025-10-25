@@ -1,0 +1,12 @@
+.burger__ingredients {
+  width: calc(50% - 20px);
+}
+
+.burger__nav {
+  display: flex;
+}
+
+.ingredients__container {
+  max-height: 72vh;
+  overflow-y: auto;
+}
