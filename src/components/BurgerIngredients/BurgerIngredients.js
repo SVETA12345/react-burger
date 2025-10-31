@@ -2,71 +2,15 @@ import React, { useEffect } from 'react';
 import { useRef, useState } from 'react';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import imgBurger from '../../images/burger_simple.png'
 import CardsList from '../CardsList/CardsList';
+import PropTypes from 'prop-types';
 
-function BurgerIngredients(){
+function BurgerIngredients({handleClickOpenModal, breadsData, saucesData, toppingsData}){
     const [currentMenu, setCurrentMenu] = useState('breads')
     const breadsRef = useRef(null)
     const saucesRef = useRef(null)
     const toppingsRef = useRef(null)
-    const breadsData = [
-        {
-            img: imgBurger,
-            amount: 20,
-            name: 'Краторная булка N-200i'
-        },
-        {
-            img: imgBurger,
-            amount: 20,
-            name: 'Краторная булка N-200i'
-        }
-    ]
 
-    const saucesData = [
-        {
-            img: imgBurger,
-            amount: 20,
-            name: 'Краторная булка N-200i'
-        },
-        {
-            img: imgBurger,
-            amount: 20,
-            name: 'Краторная булка N-200i'
-        },
-        {
-            img: imgBurger,
-            amount: 20,
-            name: 'Краторная булка N-200i'
-        },
-        {
-            img: imgBurger,
-            amount: 20,
-            name: 'Краторная булка N-200i'
-        }
-    ]
-    const toppingsData= [
-        {
-            img: imgBurger,
-            amount: 20,
-            name: 'Краторная булка N-200i'
-        },
-        {
-            img: imgBurger,
-            amount: 20,
-            name: 'Краторная булка N-200i'
-        },
-        {
-            img: imgBurger,
-            amount: 20,
-            name: 'Краторная булка N-200i'
-        },
-        {
-            img: imgBurger,
-            amount: 20,
-            name: 'Краторная булка N-200i'
-        }
-    ]
     useEffect(()=>{
         let currentRef = null
         if (currentMenu === 'breads'){
@@ -78,7 +22,7 @@ function BurgerIngredients(){
         else{
             currentRef = toppingsRef
         }
-        currentRef.current.scrollIntoView({ 
+        currentRef.current.scrollIntoView({
             behavior: 'smooth' 
         });
     }, [currentMenu])
@@ -97,15 +41,21 @@ function BurgerIngredients(){
             </nav>
             <div className={`${styles.ingredients__container} mt-5 mt-5`}>
                 <h3 className="text text_type_main-medium" ref={breadsRef}>Булки</h3>
-                <CardsList cards={breadsData} />
+                <CardsList handleClickOpenModal={handleClickOpenModal} cards={breadsData} />
                 <h3 className="text text_type_main-medium" ref={saucesRef}>Соусы</h3>
-                <CardsList cards={saucesData} />
+                <CardsList handleClickOpenModal={handleClickOpenModal} cards={saucesData} />
                 <h3 className="text text_type_main-medium" ref={toppingsRef}>Начинки</h3>
-                <CardsList cards={toppingsData} />
+                <CardsList handleClickOpenModal={handleClickOpenModal} cards={toppingsData} />
             </div>
         </section>
     )
 }
 
+BurgerIngredients.propTypes = {
+  handleClickOpenModal: PropTypes.func.isRequired,
+  breadsData: PropTypes.array.isRequired,
+  saucesData: PropTypes.array.isRequired,
+  toppingsData: PropTypes.array.isRequired
+}
 
 export default BurgerIngredients;
