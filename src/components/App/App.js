@@ -10,14 +10,14 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 import ModalOverlay from '../ModalOverlay/ModalOverlay'
 import OrderDetails from '../OrderDetails/OrderDetails';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-
+import Modal from '../Modal/Modal';
 function App() {
   const [breadsData, setBreadsData] = useState([])
   const [saucesData, setSaucesData] = useState([])
   const [toppingsData, setToppingsData] = useState([])
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [numOrder, setNumOrder] = useState(null)
-  const [cardDataModal, setCardDataModal] = useState({})
+  const [cardDataModal, setCardDataModal] = useState(null)
 
   const handleClickOpenModal = (e, numOrder=null, cardDataModal={}) => {
     if (numOrder){
@@ -37,7 +37,12 @@ function App() {
 
   useEffect(()=>{
     fetch(GET_BURGERS_URL)
-    .then(res => res.json())
+    .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка ${res.status}`);
+            })
     .then((data) => {
       const burgersData = data.data
       const breadsDataNew = burgersData.filter((ingradient) => ingradient.type === 'bun')
@@ -54,17 +59,12 @@ function App() {
 
   return (
     <div className={styles.App}>
-      {isOpenModal ? (
-        <div style={{overflow: 'hidden'}}>
-          <ModalOverlay handleOnClose={handleOnClose}  header={numOrder ? '' : "Детали ингредиента"} >
-            {cardDataModal ? (<IngredientDetails card={cardDataModal}/>)
+      <ModalOverlay isOpenModal={isOpenModal} handleOnClose={handleOnClose} />
+      {isOpenModal && (<Modal handleOnClose={handleOnClose} header={cardDataModal ? 'Детали ингредиента' : ""} > 
+        {cardDataModal ? (<IngredientDetails card={cardDataModal}/>)
             : (<OrderDetails numOrder={numOrder} />)
-            }
-            
-          </ModalOverlay>
-        </div>
-      ): (
-        <>
+        }    
+        </Modal>)}
         <AppHeader/>
         <main className={styles.burgers__info}>
           <h2 className="text  text_type_main-large">Соберите бургер</h2>
@@ -73,8 +73,7 @@ function App() {
               <BurgerConstructor handleClickOpenModal={handleClickOpenModal} setIsOpenModal={setIsOpenModal} breadsData={breadsData} saucesData={saucesData} toppingsData={toppingsData} />
           </div>
         </main>
-      </>
-      )}
+      
      
     </div>
   );

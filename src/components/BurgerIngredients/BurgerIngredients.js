@@ -10,6 +10,7 @@ function BurgerIngredients({handleClickOpenModal, breadsData, saucesData, toppin
     const breadsRef = useRef(null)
     const saucesRef = useRef(null)
     const toppingsRef = useRef(null)
+    const containerRef= useRef(null)
 
     useEffect(()=>{
         let currentRef = null
@@ -22,10 +23,22 @@ function BurgerIngredients({handleClickOpenModal, breadsData, saucesData, toppin
         else{
             currentRef = toppingsRef
         }
-        currentRef.current.scrollIntoView({
-            behavior: 'smooth' 
-        });
+        const sectionElement = currentRef?.current;
+        const containerElement = containerRef.current;
+
+        if (sectionElement && containerElement) {
+            const containerRect = containerElement.getBoundingClientRect();
+            const sectionRect = sectionElement.getBoundingClientRect();
+      
+            // Прокручиваем контейнер, а не весь документ
+            containerElement.scrollTo({
+                top: containerElement.scrollTop + (sectionRect.top - containerRect.top) - 20, // -20 для отступа
+                behavior: 'smooth'
+            })
+        }
     }, [currentMenu])
+
+    
     return(
         <section className={`${styles.burger__ingredients} mt-5`}>
             <nav className={styles.burger__nav}>
@@ -39,7 +52,7 @@ function BurgerIngredients({handleClickOpenModal, breadsData, saucesData, toppin
                     Начинки
                 </Tab>
             </nav>
-            <div className={`${styles.ingredients__container} mt-5 mt-5`}>
+            <div ref={containerRef} className={`${styles.ingredients__container} mt-5 mt-5`}>
                 <h3 className="text text_type_main-medium" ref={breadsRef}>Булки</h3>
                 <CardsList handleClickOpenModal={handleClickOpenModal} cards={breadsData} />
                 <h3 className="text text_type_main-medium" ref={saucesRef}>Соусы</h3>

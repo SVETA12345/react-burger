@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./BurgerConstructor.module.css";
 import {
   Button,
@@ -9,23 +9,40 @@ import {
 import PropTypes from 'prop-types';
 
 function BurgerConstructor({handleClickOpenModal, breadsData, saucesData, toppingsData}) {
+  const [breadTop, setBreadTop] = useState({
+    name: '',
+    price: null,
+    _id: null,
+    image: null
+  })
+  const [breadBottom, setBreadBottom] = useState({
+    name: '',
+    price: null,
+    _id: null,
+    image: null
+  })
+
   
+  useEffect(()=>{
+    if (breadsData.length>1){
+      setBreadTop(breadsData[0])
+      setBreadBottom(breadsData.at(-1))
+    }
+  }, [breadsData])
   return (
     <section className={styles.burger_constructor}>
       <ul className={styles.burger_list}>
-        {breadsData.map((burger, index) =>
-           (
-            <li key={index} className={`${styles.burger_start} mb-4`}>
+        
+            <li key={breadTop._id} className={`${styles.burger_start} mb-4`}>
               <ConstructorElement
                 type="top"
                 isLocked={true}
-                text={`${burger.name} (верх)`}
-                price={burger.price}
-                thumbnail={burger.image}
+                text={`${breadTop.name} (верх)`}
+                price={breadTop.price}
+                thumbnail={breadTop.image}
               />
             </li>
-          ))
-         }
+          
          </ul>
          <div className={styles.burger__scroll}>
             <ul className={styles.burger_list}>
@@ -44,19 +61,16 @@ function BurgerConstructor({handleClickOpenModal, breadsData, saucesData, toppin
             </ul>
          </div>
          <ul className={styles.burger_list}>
-          {
-            breadsData.map((bread, index)=>(
-                <li key={index} className={`${styles.burger_start} mt-4`}>
+                <li key={breadBottom._id} className={`${styles.burger_start} mt-4`}>
                 <ConstructorElement
                   type="bottom"
                   isLocked={true}
-                  text={`${bread.name} (низ)`}
-                  price={bread.price}
-                  thumbnail={bread.image}
+                  text={`${breadBottom.name} (низ)`}
+                  price={breadBottom.price}
+                  thumbnail={breadBottom.image}
                 />
               </li>
-            ))
-          }
+
       </ul>
       <div className={styles.burgers__basement}>
         <p className="text text_type_digits-medium mr-2">610</p>
