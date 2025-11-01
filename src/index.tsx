@@ -7,6 +7,9 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const modals = ReactDOM.createRoot(
+  document.getElementById('react-modals') as HTMLElement
+);
 root.render(
   <React.StrictMode>
     <App />

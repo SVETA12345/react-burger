@@ -1,18 +1,19 @@
-.card{
-    width: 272px;
-    height: 208px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.card {
+  width: 272px;
+  height: 208px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.card__img{
-    max-width: 240px;
-    height: 120px;
+.card__img {
+  max-width: 240px;
+  height: 120px;
 }
 
-.card__amount{
-    display: flex;
-    align-items: center;
+.card__amount {
+  display: flex;
+  align-items: center;
 }
