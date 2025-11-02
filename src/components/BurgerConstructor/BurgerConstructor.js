@@ -9,37 +9,31 @@ import {
 import PropTypes from 'prop-types';
 
 function BurgerConstructor({handleClickOpenModal, breadsData, saucesData, toppingsData}) {
-  const [breadTop, setBreadTop] = useState({
-    name: '',
-    price: null,
-    _id: null,
-    image: null
-  })
-  const [breadBottom, setBreadBottom] = useState({
+  const [breadsTopBottom, setBreadsTopBottom] = useState({
     name: '',
     price: null,
     _id: null,
     image: null
   })
 
+
   
   useEffect(()=>{
-    if (breadsData.length>1){
-      setBreadTop(breadsData[0])
-      setBreadBottom(breadsData.at(-1))
+    if (breadsData.length>0){
+      setBreadsTopBottom(breadsData[0])
     }
   }, [breadsData])
   return (
     <section className={styles.burger_constructor}>
       <ul className={styles.burger_list}>
         
-            <li key={breadTop._id} className={`${styles.burger_start} mb-4`}>
+            <li key={breadsTopBottom._id} className={`${styles.burger_start} mb-4`}>
               <ConstructorElement
                 type="top"
                 isLocked={true}
-                text={`${breadTop.name} (верх)`}
-                price={breadTop.price}
-                thumbnail={breadTop.image}
+                text={`${breadsTopBottom.name} (верх)`}
+                price={breadsTopBottom.price}
+                thumbnail={breadsTopBottom.image}
               />
             </li>
           
@@ -61,13 +55,13 @@ function BurgerConstructor({handleClickOpenModal, breadsData, saucesData, toppin
             </ul>
          </div>
          <ul className={styles.burger_list}>
-                <li key={breadBottom._id} className={`${styles.burger_start} mt-4`}>
+                <li key={breadsTopBottom._id} className={`${styles.burger_start} mt-4`}>
                 <ConstructorElement
                   type="bottom"
                   isLocked={true}
-                  text={`${breadBottom.name} (низ)`}
-                  price={breadBottom.price}
-                  thumbnail={breadBottom.image}
+                  text={`${breadsTopBottom.name} (низ)`}
+                  price={breadsTopBottom.price}
+                  thumbnail={breadsTopBottom.image}
                 />
               </li>
 
