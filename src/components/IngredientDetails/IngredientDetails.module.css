@@ -1,0 +1,19 @@
+.card {
+  text-align: center;
+}
+
+.card__img {
+  width: 520px;
+  height: 240px;
+}
+
+.card__list {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  max-width: 520px;
+  padding: 0;
+  margin: 0;
+  margin-top: 32px;
+  margin-bottom: 60px;
+}
